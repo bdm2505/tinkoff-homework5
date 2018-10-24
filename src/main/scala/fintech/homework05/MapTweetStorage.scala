@@ -3,8 +3,8 @@ package fintech.homework05
 import scala.collection.mutable
 
 class MapTweetStorage extends TweetStorage {
-  val mapID: mutable.Map[String, Tweet] = mutable.Map.empty
-  val mapTags: mutable.Map[String, Seq[Tweet]] = mutable.Map.empty
+  private val mapID: mutable.Map[String, Tweet] = mutable.Map.empty
+  private val mapTags: mutable.Map[String, Seq[Tweet]] = mutable.Map.empty
 
   def saveTweet(tweet: Tweet): Unit = {
     mapID += (tweet.id -> tweet)

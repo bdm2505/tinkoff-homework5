@@ -9,11 +9,13 @@ trait TweetStorage {
   def findTag(tag: String): Option[Seq[Tweet]]
 
   def updateTweet(id: String)(funUpdate: Tweet => Tweet): Option[Tweet] = {
-    val result = getTweet(id).map(funUpdate)
-    if (result.isDefined && result.get.id != id)
-      return None
-    result foreach saveTweet
-    result
+    getTweet(id) map funUpdate flatMap {
+      case tweet: Tweet if tweet.id == id =>
+        saveTweet(tweet)
+        Some(tweet)
+      case _ =>
+        None
+    }
   }
 }
 
